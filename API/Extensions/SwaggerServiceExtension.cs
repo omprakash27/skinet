@@ -23,7 +23,6 @@ namespace API.Extensions
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
-                //     //         //c.RoutePrefix= "API v1/swagger";
             });
 
             return app;

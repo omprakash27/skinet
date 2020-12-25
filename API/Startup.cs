@@ -3,7 +3,6 @@ using API.Helpers;
 using API.Middleware;
 using AutoMapper;
 using Infrastructure.Data;
-//using API.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -20,8 +19,6 @@ namespace API
         {
             _config = config;
         }
-
-        //public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -42,20 +39,7 @@ namespace API
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseMiddleware<ExceptionMiddleware>();
-            // if (env.IsDevelopment())
-            // {
-            //     app.UseDeveloperExceptionPage();
-            //     // app.UseSwagger();
-            //     // app.UseSwaggerUI(c => 
-            //     //     {
-            //     //         c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
-            //     //         //c.RoutePrefix= "API v1/swagger";
-            //     //     });
-            // }
-
-            //Handling custom errors
-            //app.UseStatusCodePagesWithReExecute("/errors/{0}");
-
+            
             app.UseHttpsRedirection();
 
             app.UseRouting();
