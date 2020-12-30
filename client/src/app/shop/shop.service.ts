@@ -1,3 +1,4 @@
+import { IProduct } from './../shared/models/product';
 import { ShopParams } from './../shared/models/shopParams';
 import { IBrand } from './../shared/models/brand';
 import { Injectable } from '@angular/core';
@@ -41,6 +42,10 @@ export class ShopService {
     }).pipe(
       map(response => { return response.body})
     );
+  }
+
+  getProduct(id:number){
+    return this.http.get<IProduct>(this.baseUrl + 'products/' + id);
   }
 
   getBrands() {
