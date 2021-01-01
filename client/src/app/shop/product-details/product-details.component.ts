@@ -14,17 +14,19 @@ export class ProductDetailsComponent implements OnInit {
 
   constructor(private shopService: ShopService,
               private activatedRoute: ActivatedRoute,
-              private bcService: BreadcrumbService) { }
+              private bcService: BreadcrumbService) {
+                this.bcService.set("@productDetails", "");
+               }
 
   ngOnInit(): void {
+    this.bcService.set("@productDetails", '');
     this.loadProduct();
   }
 
   loadProduct(){
-    let id = this.activatedRoute.snapshot.paramMap.get('id');
-    this.shopService.getProduct(+id).subscribe(response =>{
+    this.shopService.getProduct(+this.activatedRoute.snapshot.paramMap.get('id')).subscribe(response =>{
       this.product = response;
-      this.bcService.set('@productDetails', this.product.name);
+      this.bcService.set("@productDetails", this.product.name);
     },
     error =>{
       console.log(error);

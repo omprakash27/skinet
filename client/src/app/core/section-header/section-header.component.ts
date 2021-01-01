@@ -10,7 +10,10 @@ import { Component, OnInit } from '@angular/core';
 export class SectionHeaderComponent implements OnInit {
   breadcrumb$:Observable<any[]>;
 
-  constructor(private bcService: BreadcrumbService) { }
+  constructor(private bcService: BreadcrumbService) {
+    this.bcService.set('@productDetails', '');
+
+  }
 
   ngOnInit(): void {
     this.breadcrumb$ = this.bcService.breadcrumbs$;
