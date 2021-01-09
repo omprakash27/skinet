@@ -1,3 +1,4 @@
+import { BasketService } from './../../basket/basket.service';
 import { ShopService } from './../shop.service';
 import { IProduct } from './../../shared/models/product';
 import { Component, OnInit } from '@angular/core';
@@ -7,30 +8,51 @@ import { BreadcrumbService } from 'xng-breadcrumb';
 @Component({
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
-  styleUrls: ['./product-details.component.scss']
+  styleUrls: ['./product-details.component.scss'],
 })
 export class ProductDetailsComponent implements OnInit {
-  product:IProduct;
+  product: IProduct;
+  quantity: number = 1;
 
-  constructor(private shopService: ShopService,
-              private activatedRoute: ActivatedRoute,
-              private bcService: BreadcrumbService) {
-                this.bcService.set("@productDetails", "");
-               }
+  constructor(
+    private shopService: ShopService,
+    private activatedRoute: ActivatedRoute,
+    private bcService: BreadcrumbService,
+    private basketService: BasketService
+  ) {
+    this.bcService.set('@productDetails', '');
+  }
 
   ngOnInit(): void {
-    this.bcService.set("@productDetails", '');
+    this.bcService.set('@productDetails', '');
     this.loadProduct();
   }
 
-  loadProduct(){
-    this.shopService.getProduct(+this.activatedRoute.snapshot.paramMap.get('id')).subscribe(response =>{
-      this.product = response;
-      this.bcService.set("@productDetails", this.product.name);
-    },
-    error =>{
-      console.log(error);
-    })
+  addItemToBasket() {
+    this.basketService.addItemToBasket(this.product, this.quantity);
   }
 
+  incrementQuantity() {
+    this.quantity++;
+  }
+
+  decrementQuantity() {
+    if (this.quantity > 1) {
+      this.quantity--;
+    }
+  }
+
+  loadProduct() {
+    this.shopService
+      .getProduct(+this.activatedRoute.snapshot.paramMap.get('id'))
+      .subscribe(
+        (response) => {
+          this.product = response;
+          this.bcService.set('@productDetails', this.product.name);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }
 }
