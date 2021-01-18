@@ -17,7 +17,7 @@ namespace API.Errors
             return statusCode switch
             {
                 400 => "A bad Requet",
-                401 => "error 1",
+                401 => "Authorized, you are not",
                 404 => "Not found",
                 _ => "Undefined error"
             };
