@@ -15,7 +15,7 @@ namespace API.Dtos
         [Required]
         public string State { get; set; }
         [Required]
-        public string Country { get; set; }
+        public string Country { get; set; } = "US";
         [Required]
         public string Zipcode { get; set; }
     }
